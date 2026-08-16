@@ -8,10 +8,13 @@
 > 仓库：https://github.com/CongJian833/PvZ2-LawnZoomTab
 
 LawnZoomTab 由 [PvZ2-MaxZoomHook](https://github.com/CongJian833/PvZ2-MaxZoomHook)
-扩展而来。上游代码继续适用其 MIT License；本项目的新增与修改部分采用
-[PolyForm Noncommercial License 1.0.0](LICENSE)，仅允许非商业用途。完整来源和
-授权边界见 [NOTICE](NOTICE)。由于附加了非商业限制，本项目属于源码可用项目，
-不使用 OSI 定义下的"开源许可证"表述。
+扩展而来。CongJian833 为本项目独立创作的源代码、原创修改、文档及其他受著作权
+保护的材料采用 [PolyForm Noncommercial License 1.0.0](LICENSE)，仅允许非商业
+用途；这些材料的源代码、编译形式和修改形式均在许可范围内。上游代码与
+And64InlineHook 继续适用各自的 MIT License，游戏本体、`libPVZ2.so`、游戏资源与
+商标不属于本项目授权材料。完整适用范围、来源和授权边界见 [LICENSE](LICENSE) 与
+[NOTICE](NOTICE)。由于附加了非商业限制，本项目属于源码可用项目，不使用 OSI
+定义下的“开源许可证”表述。
 
 ## 功能
 
@@ -192,10 +195,14 @@ LawnZoomTab/
 
 ## 许可证
 
-除 `NOTICE` 中列明的上游及第三方部分外，LawnZoomTab 的新增与修改部分采用
-PolyForm Noncommercial License 1.0.0。禁止将这些部分用于预期商业应用、收费分发、
-商业服务或其他营利用途。上游 PvZ2-MaxZoomHook 代码原有的 MIT 权利不因本项目的
-附加许可而被撤销或缩减。
+`LICENSE` 前部的适用范围声明明确界定 PolyForm Noncommercial License 1.0.0 中
+“the software”所指材料，后部完整保留该许可证原文。该许可仅适用于 CongJian833
+为 LawnZoomTab 独立创作、且依法享有著作权的材料及其源代码、编译、修改和被包含
+形式；禁止将这些材料用于预期商业应用、收费分发、商业服务或其他营利用途。
+
+上游 PvZ2-MaxZoomHook 与 And64InlineHook 的 MIT 权利不因本项目附加许可而被撤销
+或缩减；游戏本体及其他第三方材料不由本项目授权。混合文件中的各部分分别继续适用
+其各自许可证，具体边界见 `LICENSE` 与 `NOTICE`。
 
 ## 致谢与版权
 

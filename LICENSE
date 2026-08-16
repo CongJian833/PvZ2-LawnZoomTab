@@ -1,3 +1,83 @@
+LawnZoomTab License Scope / LawnZoomTab 许可适用范围
+
+Repository / 项目仓库:
+https://github.com/CongJian833/PvZ2-LawnZoomTab
+
+Licensor / 许可人:
+Copyright (c) 2026 CongJian833 (落筆从生簡 / B站)
+
+1. Covered Material / 受许可材料
+
+The PolyForm Noncommercial License 1.0.0 below applies only to original source
+code, original modifications, documentation, and other copyrightable material
+authored by the Licensor for the LawnZoomTab project (the "Covered Material").
+
+下方 PolyForm Noncommercial License 1.0.0 仅适用于许可人为 LawnZoomTab 项目
+独立创作的源代码、原创修改、文档及其他受著作权保护的材料（合称“受许可材料”）。
+
+Covered Material remains subject to this license in source-code form,
+object-code or compiled form, modified form, and when incorporated into or
+distributed with another work. Incorporating Covered Material into another
+work does not place that entire work under this license; this license continues
+to apply only to the Covered Material contained in it.
+
+无论受许可材料以源代码、目标代码或编译形式、修改形式存在，还是被包含在其他作品中
+或与其他作品一同分发，均继续受本许可约束。将受许可材料包含在其他作品中，不会使该
+其他作品整体自动适用本许可；本许可仅继续适用于其中所包含的受许可材料。
+
+2. Excluded Material / 排除材料
+
+The following material is not relicensed under PolyForm Noncommercial License
+1.0.0 by this project:
+
+以下材料不因本项目而被重新许可为 PolyForm Noncommercial License 1.0.0：
+
+a. Code and copyrightable material inherited from PvZ2-MaxZoomHook remain
+   subject to the upstream MIT License and its existing permissions.
+   继承自 PvZ2-MaxZoomHook 的代码及受著作权保护的材料，继续适用上游 MIT
+   License 及其既有授权。
+
+b. And64InlineHook remains subject to its own MIT License and copyright notice.
+   And64InlineHook 继续适用其自身的 MIT License 与版权声明。
+
+c. Plants vs. Zombies 2, libPVZ2.so, game code, game assets, trademarks, and
+   other Electronic Arts or PopCap materials are not part of the Covered
+   Material and are not licensed by this project.
+   Plants vs. Zombies 2、libPVZ2.so、游戏代码、游戏资源、商标及 Electronic
+   Arts 或 PopCap 的其他材料不属于受许可材料，本项目无权对其授权。
+
+d. Ideas, facts, algorithms, offsets, interfaces, methods of operation, and
+   other matter not protected by copyright are not made exclusive by this
+   license, except to the extent that a particular expression is protected by
+   applicable law.
+   思想、事实、算法、偏移量、接口、操作方法及其他不受著作权保护的内容，不因本
+   许可而成为专有内容；但其具体表达依法受到保护的部分除外。
+
+3. Mixed Files / 混合文件
+
+Where a file contains both Covered Material and Excluded Material, each portion
+remains subject to its applicable license. See NOTICE for provenance,
+third-party attribution, and additional license-boundary information.
+
+若同一文件同时包含受许可材料与排除材料，各部分分别继续适用其各自许可证。来源、
+第三方署名及进一步的许可边界说明见 NOTICE。
+
+4. Relationship to the Terms Below / 与下方条款的关系
+
+This scope statement identifies the material offered by the Licensor as "the
+software" under the Definitions section of PolyForm Noncommercial License
+1.0.0. It does not modify the text of that license, expand the Licensor's
+copyright ownership, revoke third-party rights, or grant rights in Excluded
+Material. If this scope statement conflicts with a third party's applicable
+license, that third-party license controls for that third-party material.
+
+本范围声明用于明确 PolyForm Noncommercial License 1.0.0“Definitions”一节中
+许可人以该协议提供的“the software”所指材料。本声明不修改该协议原文，不扩大许可人
+拥有的著作权，不撤销第三方既有权利，也不授予排除材料的任何权利。如本声明与第三方
+材料适用的许可证冲突，就该第三方材料以其许可证为准。
+
+-------------------------------------------------------------------------------
+
 PolyForm Noncommercial License 1.0.0
 
 <https://polyformproject.org/licenses/noncommercial/1.0.0>

@@ -1,19 +1,63 @@
-Required Notice: Copyright 2026 落筆从生簡 (B站)
+Required Notice: Copyright 2026 CongJian833 (落筆从生簡 / B站)
+
+LawnZoomTab
+Repository: https://github.com/CongJian833/PvZ2-LawnZoomTab
+
+This NOTICE records provenance, attribution, and license boundaries. It does
+not replace the applicable license texts. See LICENSE for the complete scope
+statement and the unmodified PolyForm Noncommercial License 1.0.0 terms.
+
+1. Project-Specific Original Material
+
+Original source code, original modifications, documentation, and other
+copyrightable material authored by CongJian833 for LawnZoomTab are offered
+under PolyForm Noncommercial License 1.0.0, subject to the scope statement at
+the beginning of LICENSE. This applies to those portions in source, object or
+compiled, modified, incorporated, and distributed forms.
+
+Applying the license to those portions does not place an entire combined work
+or third-party work under PolyForm Noncommercial License 1.0.0.
+
+2. Upstream Project
 
 LawnZoomTab is an extended derivative work of PvZ2-MaxZoomHook:
 https://github.com/CongJian833/PvZ2-MaxZoomHook
 
-The upstream project and any portions received from it remain subject to the
-upstream MIT License. Those upstream MIT permissions, including commercial-use
-permissions for the upstream code, are not revoked or restricted by this file.
+Code and copyrightable material inherited from PvZ2-MaxZoomHook remain subject
+to the upstream MIT License. Their existing permissions, including commercial
+use permissions, are not revoked, reduced, or replaced by the LawnZoomTab
+license. In mixed files, upstream portions remain MIT-licensed and only the
+separable original additions and modifications by CongJian833 are offered
+under PolyForm Noncommercial License 1.0.0.
 
-Third-party components included in this project:
+3. Third-Party Component
 
-- And64InlineHook (https://github.com/Rprop/And64InlineHook) — MIT License,
-  Copyright (c) 2018 Rprop. Used for ARM64 inline hooking. The full license
-  text is preserved in jni/And64InlineHook.cpp and jni/And64InlineHook.hpp.
+And64InlineHook
+Source: https://github.com/Rprop/And64InlineHook
+License: MIT License
+Copyright (c) 2018 Rprop (r_prop@outlook.com)
 
-Except for third-party and upstream portions that carry their own notices or
-licenses, the modifications and original material in LawnZoomTab are offered
-under PolyForm Noncommercial License 1.0.0. Keep this Required Notice and the
-applicable license text with every copy or substantial portion of this project.
+And64InlineHook is used for ARM64 inline hooking. Its original copyright and
+MIT License text are preserved in jni/And64InlineHook.cpp and
+jni/And64InlineHook.hpp. No additional noncommercial restriction is imposed on
+that component by LawnZoomTab.
+
+4. Game and Other Excluded Material
+
+Plants vs. Zombies 2, libPVZ2.so, game code, game assets, trademarks, and other
+Electronic Arts or PopCap materials are not included as licensed material of
+LawnZoomTab. LawnZoomTab is not affiliated with, endorsed by, or sponsored by
+Electronic Arts or PopCap. Users are responsible for obtaining any rights or
+permissions required for third-party materials and for complying with
+applicable law and terms of service.
+
+Ideas, facts, algorithms, offsets, interfaces, and methods of operation are
+outside the project's copyright license except to the extent that a particular
+expression is protected by applicable law.
+
+5. Redistribution Notice
+
+Anyone redistributing Covered Material must provide the applicable license
+terms or their URL and preserve every plain-text line beginning with
+"Required Notice:" as required by PolyForm Noncommercial License 1.0.0.
+Applicable upstream and third-party license notices must also be preserved.
