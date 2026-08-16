@@ -3,9 +3,8 @@
 > **Plants Vs Zombies 2** Android 视角菜单项 + 高低视角切换 + 黑边修复 Hook 模块
 >
 > 通过 inline hook `libPVZ2.so`，在设置界面注入独立"视角"Tab，用于切换高低视角缩放并修复宽屏设备黑边。
-> 支持 **ARM64**（arm64-v8a）和 **ARM32**（armeabi-v7a，目标函数为 ARM 模式）双架构，两架构功能对等。
->
-> 仓库：https://github.com/CongJian833/PvZ2-LawnZoomTab
+> 支持 **ARM64**（arm64-v8a）和 **ARM32**（armeabi-v7a，目标函数为 ARM 模式）双架构，两架构功能对等且均通过了运行时测试。
+
 
 LawnZoomTab 由 [PvZ2-MaxZoomHook](https://github.com/CongJian833/PvZ2-MaxZoomHook)
 扩展而来。CongJian833 为本项目独立创作的源代码、原创修改、文档及其他受著作权
@@ -322,7 +321,7 @@ LawnZoomTab/
 
 ## 致谢与版权
 
-本项目作者：**落筆从生簡**（B站）
+本项目作者：**落筆从生簡**（BiliBili）
 
 **鸣谢：雪竹子池**
 在这里也一并感谢各位：支持项目部分功能实现、参与项目运行测试，并为本项目提出改进建议的伙伴们~
