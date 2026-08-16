@@ -1,0 +1,51 @@
+# 本地开发工具（仅本地使用，不随 GitHub 仓库分发）
+# 构建脚本、测试脚本与 APK 打包工具都属于开发过程文件，
+# 仓库只发布源码（jni/）与面向用户的文档。
+build_variants.py
+test_lawn_zoom_tab_guards.py
+tests/
+tools/
+
+# 变更日志仅用于记录本地项目变化，不随仓库分发
+# （实际上线后采用 1.0.0 版本管理）
+本地-CHANGELOG.md
+
+# 内部开发计划/设计文档（superpowers 工作流产物，不随仓库分发）
+docs/superpowers/
+
+# NDK 编译产物
+libs/
+obj/
+
+# Python
+__pycache__/
+*.pyc
+
+# 打包输出（本地打包工具输出目录）
+out/
+
+# 双版本构建产物（本地 build_variants.py 输出）
+dist/
+
+# IDE / 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 敏感文件（不应上传）
+*.jks
+*.keystore
+*.apk
+*.so
+
+# 原始游戏文件（版权敏感，不应上传）
+libPVZ2.so
+*.i64
+*.idb

@@ -1,0 +1,19 @@
+Required Notice: Copyright 2026 落筆从生簡 (B站)
+
+LawnZoomTab is an extended derivative work of PvZ2-MaxZoomHook:
+https://github.com/CongJian833/PvZ2-MaxZoomHook
+
+The upstream project and any portions received from it remain subject to the
+upstream MIT License. Those upstream MIT permissions, including commercial-use
+permissions for the upstream code, are not revoked or restricted by this file.
+
+Third-party components included in this project:
+
+- And64InlineHook (https://github.com/Rprop/And64InlineHook) — MIT License,
+  Copyright (c) 2018 Rprop. Used for ARM64 inline hooking. The full license
+  text is preserved in jni/And64InlineHook.cpp and jni/And64InlineHook.hpp.
+
+Except for third-party and upstream portions that carry their own notices or
+licenses, the modifications and original material in LawnZoomTab are offered
+under PolyForm Noncommercial License 1.0.0. Keep this Required Notice and the
+applicable license text with every copy or substantial portion of this project.
