@@ -38,11 +38,9 @@
  *
  * === 设备判定（宽高比方式）===
  *   判定方式：g_aspect_ratio = screenWidth / screenHeight
- *     宽高比 > 1.69335 → 手机 → 执行相机对齐和居中
- *     宽高比 < 1.69335 → 平板 → 不执行后续逻辑
- *   阈值 1.69335 能有效区分：
- *     手机 16:9=1.778, 18:9=2.0, 19.5:9=2.167 均 > 1.69335
- *     平板 4:3=1.333, 16:10=1.6, 3:2=1.5 均 < 1.69335
+ *     高视角：宽高比 > 1.69335 → 执行左对齐和选卡居中
+ *     低视角：宽高比 > 2.16666 → 仅执行左对齐
+ *     有效比值小于等于当前视角阈值 → 不执行对齐；比值无效时保守执行
  *   初始化时机：三重保险（applyHooks + 重试线程 + hkBoardZoom lazy init）
  *   失败回退：g_aspect_ratio<=0 时保守按手机处理
  *
@@ -233,16 +231,15 @@ static int g_minSideDp = 0;     // 最小边 dp（0 表示未初始化）— 保
 // ============================================================
 // 屏幕宽高比判定（新判定方式）— 替代 dp 判定
 //
-// 目的：区分手机和平板设备
-//   - 手机：宽高比 > 1.69335 → 执行相机对齐和居中
-//   - 平板：宽高比 < 1.69335 → 不执行后续逻辑
+// 目的：按视角区分需要对齐的设备
+//   - 高视角：宽高比 > 1.69335 → 执行左对齐和选卡居中
+//   - 低视角：宽高比 > 2.16666 → 仅执行左对齐
+//   - 有效比值等于阈值时不执行；比值无效（<=0）时保守执行
 //
 // 宽高比计算：
 //   PvZ2 是横屏游戏，screenWidth 是长边，screenHeight 是短边
 //   aspect_ratio = (float)screenWidth / screenHeight
-//   阈值 1.69335 能有效区分：
-//     手机常见比例 16:9=1.778, 18:9=2.0, 19.5:9=2.167, 20:9=2.222 均 > 1.69335
-//     平板常见比例 4:3=1.333, 16:10=1.6, 3:2=1.5 均 < 1.69335
+//   高视角阈值覆盖常见手机比例；低视角阈值仅命中 19.5:9 以上的超宽屏。
 //
 // 屏幕尺寸获取（从 g_DisplayInfo，与 dp 计算共用）：
 //   ARM64: +0xF4=screenWidth, +0xF8=screenHeight
@@ -262,6 +259,17 @@ static int g_minSideDp = 0;     // 最小边 dp（0 表示未初始化）— 保
 
 // 浮点值以位模式原子发布，避免普通 float 在重试线程与 Hook 回调之间产生数据竞争。
 static std::atomic<uint32_t> g_aspect_ratio_bits{0};
+
+// 高低视角使用独立阈值。集中判定供主对齐、目标展示与恐龙补偿共用，
+// 避免不同 Hook 路径因复制条件而产生行为漂移。
+static constexpr float HIGH_VIEW_ALIGN_ASPECT = 1.69335f;
+static constexpr float LOW_VIEW_ALIGN_ASPECT = 2.16666f;
+
+static bool should_align_for_view(float aspect, bool highView) {
+    if (aspect <= 0.0f) return true;  // 初始化失败时保守执行，避免漏掉需要对齐的设备
+    const float threshold = highView ? HIGH_VIEW_ALIGN_ASPECT : LOW_VIEW_ALIGN_ASPECT;
+    return aspect > threshold;       // 等于阈值归入不对齐路径
+}
 
 static float get_aspect_ratio() {
     uint32_t bits = g_aspect_ratio_bits.load(std::memory_order_acquire);
@@ -421,8 +429,9 @@ static bool init_aspect_ratio() {
     // 宽高比 = 长边 / 短边 = screenWidth / screenHeight
     float aspect = (float)sw / (float)sh;
     set_aspect_ratio(aspect);
-    log_write("aspect: init OK, sw=%d sh=%d -> ratio=%.5f (%s, threshold=1.69335)",
-              sw, sh, aspect, (aspect > 1.69335f ? "phone" : "tablet"));
+    log_write("aspect: init OK, sw=%d sh=%d -> ratio=%.5f "
+              "(high-threshold=%.5f low-threshold=%.5f)",
+              sw, sh, aspect, HIGH_VIEW_ALIGN_ASPECT, LOW_VIEW_ALIGN_ASPECT);
     return true;
 }
 
@@ -1989,7 +1998,7 @@ static bool fix_direction_start32(uintptr_t board, uintptr_t outStart,
                                   float uiScale, long selector) {
     if (!board || !outStart || uiScale <= 0.1f || get_view_angle_state()) return false;
     float aspect = get_aspect_ratio();
-    if (aspect > 0.0f && aspect <= 1.69335f) return false;
+    if (!should_align_for_view(aspect, false)) return false;
 
     int camRx = *(int*)(board + BOARD_CAM_RENDER_X);
     int b270 = *(int*)(board + BOARD_270);
@@ -2085,7 +2094,8 @@ static long hkC187C(int a1, int a2, int a3, int a4, int a5, C187CArg6 a6) {
     // 因此 ARM32 修正已移到方向表输出层，禁止在这里改参数。
 #ifdef __aarch64__
     float aspect = get_aspect_ratio();
-    if (a5 == 4 && (aspect <= 0.0f || aspect > 1.69335f)) {
+    bool highView = get_view_angle_state();
+    if (a5 == 4 && !highView && should_align_for_view(aspect, false)) {
         uintptr_t displayInfo = *(uintptr_t*)(g_base + OFF_G_DisplayInfo);
         uintptr_t board = displayInfo ? *(uintptr_t*)(displayInfo + DISPLAYINFO_BOARD) : 0;
         uintptr_t uiCtx = *(uintptr_t*)(g_base + OFF_G_UIScaleContext);
@@ -2145,10 +2155,11 @@ static uintptr_t hkStreetDinos(uintptr_t ctx, unsigned int xBase, char spawnMode
         return 0;
     }
     float aspect = get_aspect_ratio();
+    bool highView = get_view_angle_state();
     uintptr_t snapshotBoard = g_orig_b270_board.load(std::memory_order_acquire);
     int origB270 = g_orig_b270.load(std::memory_order_relaxed);
     if (snapshotBoard != 0 &&
-        (aspect <= 0.0f || aspect > 1.69335f)) {
+        should_align_for_view(aspect, highView)) {
         uintptr_t base = current_base();
         uintptr_t displayInfo = base ? *(uintptr_t*)(base + OFF_G_DisplayInfo) : 0;
         uintptr_t board = displayInfo ? *(uintptr_t*)(displayInfo + DISPLAYINFO_BOARD) : 0;
@@ -2491,16 +2502,17 @@ static AlignResult run_board_align(uintptr_t board, const char* tag) {
     int blackEdge = (int)((float)screenWidth - post_scale * (float)boardPixelWidth);
 
     // 判定是否需要对齐：
-    //   高视角：aspect > 1.69335 → 手机（左对齐 + 选卡居中）；aspect<=0 保守按手机处理
-    //   低视角：手机判定同高视角，仅左对齐（不动 b285 选卡停留位），v25 起也震屏
+    //   高视角：aspect > 1.69335 → 左对齐 + 选卡居中
+    //   低视角：aspect > 2.16666 → 仅左对齐（不动 b285 选卡停留位）
+    //   两种视角在 aspect<=0 时均保守执行；有效比值等于阈值时不执行。
     float aspect = get_aspect_ratio();
-    bool needAlign = (aspect <= 0.0f) || (aspect > 1.69335f);
+    bool needAlign = should_align_for_view(aspect, highView);
     bool withCenterAlign = highView;
     if (!needAlign) {
         log_write("%s BoardZoom skip: highView=%d bed=%d aspect=%.5f sw=%d bpw=%d "
                   "reason=%s scale=%.4f",
                   tag, highView, blackEdge, aspect, screenWidth, boardPixelWidth,
-                  highView ? "tablet" : "tablet-lowview", post_scale);
+                  highView ? "tablet" : "non-widescreen-lowview", post_scale);
         return ALIGN_SKIP_TABLET;
     }
 
@@ -2711,7 +2723,7 @@ static void start_deferred_align(uintptr_t board) {
 //   高视角（UseHighViewAngle=true）：pre-hook 强制 board[280]=1.0，
 //     宽高比 > 1.69335 时左对齐 + 选卡居中。
 //   低视角（UseHighViewAngle=false）：保持原版摄像机参数，
-//     宽高比 > 1.69335 时左对齐（v22 公式）。
+//     宽高比 > 2.16666 时左对齐（v22 公式）。
 //   震屏补偿高低视角均执行（v25）；scale 无效（布局未完成）时武装
 //   延迟对齐线程兜底（v26，覆盖无相机平移动画的保存关卡）。
 static long hkBoardZoom(uintptr_t a1) {
